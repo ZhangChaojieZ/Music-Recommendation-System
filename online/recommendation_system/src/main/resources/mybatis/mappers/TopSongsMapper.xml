@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.recommendation_system.dao.TopSongsMapper">
+    <!--<resultMap id="topSongsResultMap" type="com.zhang.recommendation_system.pojo.TopSongs">-->
+    <!--    <result property="currentSongName" column="song_name"/>-->
+    <!--    <collection property="songs" ofType="com.zhang.recommendation_system.pojo.Song">-->
+    <!--        <result property="iid" column="iid"/>-->
+    <!--        <result property="songName" column="song_name"/>-->
+    <!--        <result property="singerName" column="singer_name"/>-->
+    <!--        <result property="album" column="album"/>-->
+    <!--        <result property="
+    playcnt" column="playcnt"/>-->
+    <!--        <result property="songUrl" column="song_url"/>-->
+    <!--    </collection>-->
+    <!--</resultMap>-->
+    <!--<select id="queryByIid" resultMap="topSongsResultMap">-->
+    <!--    select topsongs.song_name, iid, song.song_name, singer_name, album, playcnt, song_url-->
+    <!--    from topsongs,-->
+    <!--         song-->
+    <!--    where iid = #{iid} and topsongs.iid = song.iid-->
+    <resultMap id="topSongsResultMap" type="com.zhang.recommendation_system.pojo.TopSongs">
+        <result property="songName" column="song_name"/>
+        <result property="topSongs" column="topsongs"/>
+    </resultMap>
+    <!--根据歌曲id查找相似用户-->
+    <select id="queryByIid" resultMap="topSongsResultMap">
+        select song_name, topsongs
+        from topsongs,
+             song
+        where topsongs.iid = #{iid}
+          and topsongs.iid = song.iid
+    </select>
+
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.recommendation_system.dao.SongMapper">
+    <resultMap id="songResultMap" type="com.zhang.recommendation_system.pojo.Song">
+        <result property="iid" column="iid"/>
+        <result property="songName" column="song_name"/>
+        <result property="singerName" column="singer_name"/>
+        <result property="album" column="album"/>
+        <result property="playcnt" column="playcnt"/>
+        <result property="songUrl" column="song_url"/>
+        <result property="downUrl" column="down_url"/>
+        <result property="songTime" column="song_time"/>
+        <result property="picUrl" column="picUrl"/>
+        <result property="publishTime" column="publishTime"/>
+    </resultMap>
+    <!--添加歌曲-->
+    <insert id="addSong" parameterType="com.zhang.recommendation_system.pojo.Song">
+        INSERT INTO song(iid, song_name, suid, album, playcnt, song_url, down_url, song_time, picUrl, publishTime)
+        VALUES (#{iid}, #{songName}, #{singerName}, #{album}, #{playcnt}, #{songUrl}, #{downUrl}, #{songTime},
+                #{picUrl}, #{publishTime})
+    </insert>
+    <!--删除歌曲-->
+    <!--<delete id="deleteSong">-->
+    <!--    DELETE-->
+    <!--    FROM song-->
+    <!--    WHERE iid = #{iid}-->
+    <!--</delete>-->
+    <update id="deleteSong">
+        UPDATE song
+        SET isDelete='0'
+        WHERE iid = #{iid}
+    </update>
+    <!--更新歌曲-->
+    <update id="updateSong" parameterType="com.zhang.recommendation_system.pojo.Song">
+        UPDATE song
+        SET song_name=#{songName},
+            album=#{album},
+            playcnt=#{playcnt},
+            picUrl=#{picUrl}
+        WHERE isDelete = '1' AND iid = #{iid}
+    </update>
+    <!--根据歌曲id查询歌曲-->
+    <select id="queryByIid" resultMap="songResultMap">
+        SELECT iid,
+               song_name,
+               singer_name,
+               album,
+               playcnt,
+               song_url,
+               down_url,
+               song_time,
+               picUrl,
+               publishTime
+        FROM song,
+             singer
+        WHERE iid = #{iid}
+          AND isDelete = '1'
+          AND song.suid = singer.suid
+    </select>
+
+    <!--查询搜索歌曲-->
+    <select id="queryAll" resultMap="songResultMap">
+        SELECT iid,
+               song_name,
+               singer_name,
+               album,
+               playcnt,
+               song_url,
+               down_url,
+               song_time,
+               picUrl,
+               publishTime
+        FROM song,
+             singer
+        WHERE isDelete = '1'
+          AND song.suid = singer.suid
+    </select>
+
+    <select id="querySongsHot" resultMap="songResultMap">
+        SELECT iid,
+               song_name,
+               singer_name,
+               album,
+               playcnt,
+               song_url,
+               down_url,
+               song_time,
+               picUrl,
+               publishTime
+        FROM song,
+             singer
+        WHERE isDelete = '1'
+          AND song.suid = singer.suid
+        ORDER By playcnt DESC
+            LIMIT #{currIndex}, #{pageSize}
+    </select>
+
+    <select id="querySongsNew" resultMap="songResultMap">
+        SELECT iid,
+               song_name,
+               singer_name,
+               album,
+               playcnt,
+               song_url,
+               down_url,
+               song_time,
+               picUrl,
+               publishTime
+        FROM song,
+             singer
+        WHERE isDelete = '1'
+          AND song.suid = singer.suid
+        ORDER By publishTime + 0 DESC
+            LIMIT #{currIndex}, #{pageSize}
+    </select>
+
+    <!--根据歌名或专辑名进行模糊查询，传入的参数需要是包含 % 的匹配字符串-->
+    <select id="queryByKeyword" resultMap="songResultMap">
+        SELECT iid,
+               song_name,
+               singer_name,
+               album,
+               playcnt,
+               song_url,
+               down_url,
+               song_time,
+               picUrl,
+               publishTime
+        FROM song,
+             singer
+        WHERE isDelete = '1'
+          AND song.suid = singer.suid
+          AND (song_name LIKE #{keyword}
+            OR singer_name LIKE #{keyword})
+        ORDER BY publishTime + 0 DESC LIMIT 10
+    </select>
+
+
+</mapper>

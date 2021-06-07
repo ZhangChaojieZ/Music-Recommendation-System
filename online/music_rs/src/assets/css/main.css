@@ -1,0 +1,145 @@
+/* 整体样式 */
+/* 让el-container充满屏幕 */
+#user-index .all-screen {
+	position: absolute;
+	/*设置内部填充为0，几个布局元素之间没有间距*/
+	padding: 0px;
+	/*外部间距也是如此设置*/
+	margin: 0px;
+	/*统一设置高度为100%*/
+	height: 100%;
+	/* 同一设置宽度为100% */
+	width: 100%;
+	bottom: 0;
+}
+/* 整体样式 */
+
+/* 头部样式 */
+/* 背景颜色 */
+#user-index .all-screen .el-header {
+	position: relative;
+	background-color: #000;
+}
+
+/* 装饰点 */
+#user-index .all-screen .el-header .dots {
+	position: absolute;
+	width: 100px;
+	/* border: #fff solid 1px; */
+	top: 15px;
+	left: 0px;
+}
+
+/* 输入框样式 */
+#user-index .all-screen .el-header .el-input {
+	/* position: absolute; */
+    top: 5px;
+	width: 500px;
+}
+/* 使用深度选择器修改输入框的高度 */
+#user-index .all-screen .el-header .el-input .el-input__inner {
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	top: 5px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+#user-index .all-screen .el-header .el-input .el-input__icon {
+	line-height: 30px;
+}
+
+/* 用户个人中心 */
+#user-index .all-screen .el-header .el-dropdown {
+	/* 这个样式这样写并未生效，要在标签里面的style属性中写 */
+	/* display: inline-block; */
+	position: absolute !important;
+	right: 50px;
+	top: 0;
+	bottom: 0;
+	color: #fff !important;
+	height: 30px;
+	text-align: center;
+	width: 100px;
+    overflow: hidden;
+}
+
+#user-index .all-screen .el-header .el-dropdown .user-settings {
+	background-color: transparent;
+	border: none;
+	text-align: left;
+    overflow: hidden;
+}
+#user-index .all-screen .el-header .el-dropdown .user-settings span {
+    color: #fff;
+    position: absolute;
+    top: 7px;
+    padding-left: 5px;
+}
+
+#user-index .all-screen .el-header .el-dropdown .user-settings:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+	border: none;
+}
+/* 头部样式 */
+
+/* 中间样式 */
+/* 这里的el-menu是渲染之后的类名 */
+#user-index .all-screen .el-menu {
+	border: none;
+}
+/* 中间样式 */
+
+/* 侧边样式 */
+#user-index .all-screen .el-aside {
+	background-color: #000;
+	height: 100%;
+}
+
+/* 修改导航栏鼠标悬停的样式 */
+#user-index .all-screen .el-menu .el-menu-item:hover {
+	/* 加 !important 提高优先级到最高 */
+	background-color: rgba(255, 255, 255, 0.3) !important;
+}
+/* 侧边样式 */
+
+/* 底部样式 */
+#user-index .all-screen .el-footer {
+	position: relative;
+}
+/* audio样式 */
+/* .user-index .all-screen .el-footer>audio {
+    position: absolute;
+    right: 0;
+} */
+/* 底部音乐播放部分的音乐信息（图片、歌手、歌曲名等）样式 */
+#user-index .all-screen .el-footer .song-info {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 250px;
+	height: 50px;
+	display: inline-block;
+	text-align: center;
+	overflow: hidden;
+}
+#user-index .all-screen .el-footer .song-info > img {
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	/* margin-right: 5px; */
+}
+#user-index .all-screen .el-footer .song-info > div {
+	position: absolute;
+	left: 50px;
+	display: inline-block;
+	width: 200px;
+	line-height: 50px;
+	/* padding-left: 15px; */
+	overflow: hidden;
+}
+
+/* 底部样式 */
